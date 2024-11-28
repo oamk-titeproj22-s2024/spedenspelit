@@ -43,7 +43,7 @@ for(int i=0; i< sizeof(led) / sizeof(led[0]); i++){
   digitalWrite(led[i], HIGH);
 }
 }
-void show1(void)
+void show1()
 {
 //Laskee binääreissä 0-15 käyttäen ledejä
 byte count=0;
