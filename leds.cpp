@@ -2,6 +2,7 @@
 
 const int led[] = {A2, A3, A4, A5};
 int edellinenLed = -1;
+int aikavali = 1000;
 
 void initializeLeds()
 {
