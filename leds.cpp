@@ -17,15 +17,17 @@ for(int i=0; i< sizeof(led) / sizeof(led[0]); i++){
 
 void setLed(byte ledNumber)
 {
-// Asettaa ledin päälle
-if(edellinenLed != -1){
-  digitalWrite(led[edellinenLed], LOW);
+    // see requirements for this function from leds.h
+    unsigned long aika = millis();
+    if(edellinenLed==ledNumber){
+        digitalWrite(led[edellinenLed], LOW);
+        while(millis() < aika + aikavali){}
+    }
+    digitalWrite(led[edellinenLed], LOW);
+    digitalWrite(led[ledNumber], HIGH);
+    edellinenLed = ledNumber;
 }
-digitalWrite(led[ledNumber], HIGH);
-edellinenLed = ledNumber;
-}
-
-void clearAllLeds()
+clearAllLeds()
 {
 // Sammuttaa kaikki ledit
 for(int i=0; i< sizeof(led) / sizeof(led[0]); i++){
