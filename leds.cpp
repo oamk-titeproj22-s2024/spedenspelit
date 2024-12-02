@@ -34,6 +34,23 @@ clearAllLeds()
 for(int i=0; i< sizeof(led) / sizeof(led[0]); i++){
   digitalWrite(led[i], LOW);
 }
+=======
+
+void initializeLeds()
+{
+// see requirements for this function from leds.h
+}
+
+void setLed(byte ledNumber)
+{
+// see requirements for this function from leds.h
+
+}
+
+
+void clearAllLeds()
+{
+// see requirements for this function from leds.h
 }
 
 void setAllLeds()
@@ -70,4 +87,18 @@ for(int y=0;y<=rounds;y++){
 if(aika<250){
   aika=250;
 }
+}
+=======
+// see requirements for this function from leds.h
+}
+
+
+void show1()
+{
+// see requirements for this function from leds.h
+}
+
+void show2(int rounds)
+{
+// see requirements for this function from leds.h  
 }
