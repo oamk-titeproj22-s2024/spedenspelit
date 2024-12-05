@@ -1,29 +1,50 @@
-#include <Arduino_FreeRTOS.h>
+#include <logic.h>
 #include <leds.h>
 
-
-
+int randomNumbers[100];
+bool started = false;
 int numero;
-bool result;
+int binumero;
+int randcount;
+const int bin = 0b1111100;
+int tickcount = 62500;
 
 void setup() {
-  initializeLeds();
-// numero = random(2, 5);
 
-xTaskCreate(MainTask, "Game", 100, NULL, 1, NULL);
-xTaskCreate(IdleTask, "WaitInit", 100, NULL, 0, NULL);
+DDRK = 0x183;
+PORTK = 0x7C;
+TCCR4A = 0;
+TCCR4B = 0;
+TCCR4B |= 0b00000100;
+OCR4A = tickcount;
+initializeLeds();
+setLed(1);
+interrupts();
+// started = false;
+//digitalWrite(2, LOW);
 }
 
 void loop() {
+  
+if(started == false) {
+//  setLed(1);
+  if(PINK != bin) {
+    startTheGame();
+  }
 }
+else {
+  binumero = bin & ~ (1 << (numero));
+    setLed(numero);
 
-static void MainTask(void* pvParameters) {
-  show2(5);
-  vTaskSuspend(NULL);
-}
+  if(PINK == binumero) {
+    checkGame();
+  }
 
-static void IdleTask(void* pvParameters) {
-while(1) {
-  show1();
+  if(PINK != binumero && PINK != bin) {
+    TIMSK4 &= ~(1 << OCIE4A);
+    show1();
+    delay(500);
+   // resetFunc();
+    }
   }
 }
