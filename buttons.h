@@ -3,7 +3,7 @@
 #include <arduino.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-
+// Kommentti lisätty commitia varten
 
 const byte buttonPins[] = {2,3,4,5,6};
 const byte numButtons = sizeof(buttonPins) / sizeof(buttonPins[0]);

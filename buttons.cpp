@@ -1,5 +1,5 @@
 #include "buttons.h"
-
+// lisätty kommenttti uutta commitia varten
 volatile unsigned long lastDebounceTime[numButtons] = {0};
 
 void initButtonsAndButtonInterrupts() {
