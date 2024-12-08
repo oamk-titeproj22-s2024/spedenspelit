@@ -3,7 +3,7 @@
 #include <Arduino.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
-#include <leds.h>
+#include "leds.h"
 
 extern int randcount;
 extern int randomNumbers[100];
