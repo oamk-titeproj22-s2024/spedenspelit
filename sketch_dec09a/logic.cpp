@@ -5,8 +5,7 @@ volatile int randcount;
 volatile int numero;
 extern volatile bool timeToCheckGameStatus;
 extern volatile byte buttonNumber;
-int userNumbers[100];
-int randomNumbers[100];
+
 
   void initializeGame() {
     numero = random(3);
@@ -14,13 +13,13 @@ int randomNumbers[100];
   }
 
 void checkGame() {
-if((buttonNumber-1) == numero) {
+if(buttonNumber == numero) {
   newRound = 2;
   timeToCheckGameStatus = false;
 }
 else {
   newRound = 1; // Aseta newRoundin
-   
+  setAllLeds(); 
 }
  
   }
