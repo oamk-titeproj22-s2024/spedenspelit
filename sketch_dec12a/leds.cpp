@@ -2,7 +2,6 @@
 
 const int led[] = {A2, A3, A4, A5};
 int edellinenLed = -1;
-int aikavali = 1000;
 
 void initializeLeds() {
 // Asettaa analogia I/O:n output tilaan ja alustaa pinnit
@@ -15,16 +14,18 @@ for(int i=0; i< sizeof(led) / sizeof(led[0]); i++) {
 }
 
 
-void setLed(byte ledNumber) {
-    // see requirements for this function from leds.h
-//    unsigned long aika = millis();
-//    if(edellinenLed==ledNumber){
-//        digitalWrite(led[edellinenLed], LOW);
-//        while(millis() < aika + aikavali){}
-//    }
-//    digitalWrite(led[edellinenLed], LOW);
-     clearAllLeds();
+void setLed(byte ledNumber) 
+{
+    if(edellinenLed==ledNumber)
+    {
+    digitalWrite(led[edellinenLed], LOW);
+    delayMicroseconds(100);
     digitalWrite(led[ledNumber], HIGH);
+    }
+    else{
+      clearAllLeds();
+      digitalWrite(led[ledNumber], HIGH);
+    }
     edellinenLed = ledNumber;
 }
 

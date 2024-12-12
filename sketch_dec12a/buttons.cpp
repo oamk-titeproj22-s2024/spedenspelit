@@ -4,7 +4,7 @@ volatile unsigned long lastDebounceTime[numButtons] = {0};
 volatile byte buttonNumber;
 volatile bool timeToCheckGameStatus=false;
 extern volatile uint8_t userNumbers[99];
-extern volatile int roundcount;
+extern volatile int userIndex;
 
 void initButtonsAndButtonInterrupts() {
 
@@ -28,12 +28,13 @@ ISR(PCINT2_vect) {
         if ((currentTime - lastDebounceTime[i]) > debounceDelay && digitalRead(buttonPins[i]) == LOW) {
             lastDebounceTime[i] = currentTime;
             buttonNumber = buttonPins[i] - 2;
-            userNumbers[roundcount++] = buttonNumber; // = userNumbers[roundcount];
+            userNumbers[userIndex] = buttonNumber;                         // = userNumbers[roundcount];
             timeToCheckGameStatus = true;
+            userIndex++;
             Serial.print("Nappia ");
             Serial.print(buttonNumber);
             Serial.println(" painettu");
-break;
+            break;
         }
     }
 }
