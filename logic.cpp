@@ -60,12 +60,11 @@ void checkGame()
 }
 
 void startTheGame() {
-  setAllLeds();
-  delay(100);
   clearAllLeds();
   initializeTimer();
   initializeGame();
   initButtonsAndButtonInterrupts();
+  delay(500);
 }
 
 void stopTheGame(){
