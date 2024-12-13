@@ -5,8 +5,8 @@ volatile int newRound;
 volatile byte numero;
 volatile uint8_t userNumbers[99];
 volatile uint8_t randomNumbers[99];
-volatile int userIndex = 0;
-volatile int randomIndex = 0;
+volatile byte userIndex = 0;
+volatile byte randomIndex = 0;
 extern volatile bool timeToCheckGameStatus;
 extern volatile byte buttonNumber;
 volatile bool timeToMakeNewNumber;
@@ -26,10 +26,12 @@ void initializeTimer() {
   void initializeGame() {
     userIndex = 0;
     randomIndex = 0;
-    for(byte i=0; i<100; i++){
-      userNumbers[i]=0;
-      randomNumbers[i]=0;
-    }
+  }
+}
+
+  void initializeGame() {
+    userIndex = 0;
+    randomIndex = 0;
   }
 
 void checkGame() 
@@ -64,24 +66,6 @@ void checkGame()
     Serial.println(OCR1A);
   }
 }
-
-//if(userNumbers[roundcount] == randomNumbers[roundcount]) {
-//  roundcount++;
-//}
-//
-//else {
-//  clearAllLeds();
-//  setAllLeds();
-//}
-  
-//if(buttonNumber == numero) {
-////  newRound = 2;
-//  timeToCheckGameStatus = false;
-//}
-//else {
-//  newRound = 1; 
-//}
-// 
 
 void startTheGame() {
   initializeTimer();

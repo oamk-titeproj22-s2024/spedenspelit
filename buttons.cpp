@@ -4,7 +4,7 @@ volatile unsigned long lastDebounceTime[numButtons] = {0};
 volatile byte buttonNumber;
 volatile bool timeToCheckGameStatus=false;
 extern volatile uint8_t userNumbers[99];
-extern volatile int userIndex;
+extern volatile byte userIndex;
 
 void initButtonsAndButtonInterrupts() {
 

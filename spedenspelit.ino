@@ -4,12 +4,12 @@
 #include "logic.h"
 
 extern volatile byte buttonNumber;
-extern volatile int userIndex;
-extern volatile int randomIndex;
-extern volatile int randomNumbers[99];
+extern volatile byte userIndex;
+extern volatile byte randomIndex;
+extern volatile uint8_t randomNumbers[99];
 extern volatile uint8_t userNumbers[99];
 extern volatile bool timeToCheckGameStatus;
-extern byte numero;
+extern volatile byte numero;
 bool started = true;
 extern volatile bool timeToMakeNewNumber;
 
@@ -38,8 +38,7 @@ void loop()
     timeToMakeNewNumber = false;
     numero = random(0, 4);
     setLed(numero);
-    randomNumbers[randomIndex] = numero;
-    randomIndex++;
+    randomNumbers[randomIndex++] = numero;
     Serial.print("Arvottu numero: ");
     Serial.println(numero);
     }// Arvo uusi numero

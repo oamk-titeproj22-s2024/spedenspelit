@@ -39,9 +39,9 @@ void writeByte(uint8_t bits, bool last)
     digitalWrite(shiftClockPin, HIGH);
     delayMicroseconds(1);
     digitalWrite(shiftClockPin, LOW);
-    for (int i = 0; i < 7; i++)
+    for (int n = 0; n < 7; n++)
     {
-        digitalWrite(serialInputPin, (bits >> i) & 0x01);
+        digitalWrite(serialInputPin, (bits >> n) & 0x01);
         digitalWrite(shiftClockPin, HIGH);
         delayMicroseconds(1);
         digitalWrite(shiftClockPin, LOW);
