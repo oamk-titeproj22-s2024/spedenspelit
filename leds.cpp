@@ -1,5 +1,6 @@
 #include "leds.h"
 
+extern volatile bool started;
 const int led[] = {A2, A3, A4, A5};
 int edellinenLed = -1;
 
@@ -19,7 +20,7 @@ void setLed(byte ledNumber)
     if(edellinenLed==ledNumber)
     {
     digitalWrite(led[edellinenLed], LOW);
-    delayMicroseconds(100);
+    delay(100);
     digitalWrite(led[ledNumber], HIGH);
     }
     else{
@@ -47,6 +48,10 @@ void show1() {
 //Laskee binääreissä 0-15 käyttäen ledejä
 byte count=0;
 while(count<16) {
+  if(started == true){
+    clearAllLeds();
+    return;
+  }
   for(int i=0; i< sizeof(led) / sizeof(led[0]); i++) {
 digitalWrite(led[i],bitRead(count,i));
 }

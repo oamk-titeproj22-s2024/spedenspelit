@@ -3,6 +3,7 @@
 #include "buttons.h"
 #include "logic.h"
 
+volatile bool started = false;
 extern volatile byte buttonNumber;
 extern volatile byte userIndex;
 extern volatile byte randomIndex;
@@ -10,22 +11,30 @@ extern volatile uint8_t randomNumbers[99];
 extern volatile uint8_t userNumbers[99];
 extern volatile bool timeToCheckGameStatus;
 extern volatile byte numero;
-bool started = true;
 extern volatile bool timeToMakeNewNumber;
+extern volatile unsigned long lastButtonPressTime;  
+const unsigned long timeDuration = 2000; 
+unsigned long timeElapsed = millis();
+ 
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  randomSeed(1);
+  randomSeed(analogRead(A0));
   initializeLeds();
-  initButtonsAndButtonInterrupts();
-  startTheGame();
-  
-}
+  initializeStartButton();
+  }
 
 
 void loop() 
 {
+
+if(started==false)
+{
+  show1();
+}
+else{
+
   if(timeToCheckGameStatus) 
   {
     timeToCheckGameStatus = false;
@@ -41,7 +50,11 @@ void loop()
     randomNumbers[randomIndex++] = numero;
     Serial.print("Arvottu numero: ");
     Serial.println(numero);
-    }// Arvo uusi numero
-    // Talleta arvottu numero randomNumbers-taulukkoon
-    // Sytytä arvottu ledi
+   
+//    if(millis() - lastButtonPressTime > timeDuration)
+//    {
+//      stopTheGame();
+//    }
   }  
+}
+}
