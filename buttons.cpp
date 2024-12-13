@@ -1,8 +1,13 @@
 #include "buttons.h"
 // lisätty kommenttti uutta commitia varten
 volatile unsigned long lastDebounceTime[numButtons] = {0};
+volatile byte buttonNumber;
+volatile bool timeToCheckGameStatus=false;
+extern volatile uint8_t userNumbers[99];
+extern volatile int userIndex;
 
 void initButtonsAndButtonInterrupts() {
+
     for (byte i = 0; i < numButtons; i++) {
         pinMode(buttonPins[i], INPUT_PULLUP);
     }
@@ -13,7 +18,7 @@ void initButtonsAndButtonInterrupts() {
         PCMSK2 |= (1 << digitalPinToPCMSKbit(buttonPins[i]));
 
     }
-    PCMSK2 = B01111100; // 0x7c
+//    PCMSK2 = B01111100; // 0x7c
 }
 
 ISR(PCINT2_vect) {
@@ -22,9 +27,14 @@ ISR(PCINT2_vect) {
     for (byte i = 0; i < numButtons; i++) {
         if ((currentTime - lastDebounceTime[i]) > debounceDelay && digitalRead(buttonPins[i]) == LOW) {
             lastDebounceTime[i] = currentTime;
+            buttonNumber = buttonPins[i] - 2;
+            userNumbers[userIndex] = buttonNumber;                         // = userNumbers[roundcount];
+            timeToCheckGameStatus = true;
+            userIndex++;
             Serial.print("Nappia ");
-            Serial.print(buttonPins[i]);
+            Serial.print(buttonNumber);
             Serial.println(" painettu");
+            break;
         }
     }
 }

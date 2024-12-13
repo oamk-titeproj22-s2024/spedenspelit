@@ -1,50 +1,48 @@
-#include "logic.h"
 #include "leds.h"
+#include "display.h"
+#include "buttons.h"
+#include "logic.h"
 
-int randomNumbers[100];
-bool started = false;
-int numero;
-int binumero;
-int randcount;
-const int bin = 0b1111100;
-int tickcount = 62500;
+extern volatile byte buttonNumber;
+extern volatile int userIndex;
+extern volatile int randomIndex;
+extern volatile int randomNumbers[99];
+extern volatile uint8_t userNumbers[99];
+extern volatile bool timeToCheckGameStatus;
+extern byte numero;
+bool started = true;
+extern volatile bool timeToMakeNewNumber;
 
 void setup() {
-
-DDRK = 0x183;
-PORTK = 0x7C;
-TCCR4A = 0;
-TCCR4B = 0;
-TCCR4B |= 0b00000100;
-OCR4A = tickcount;
-initializeLeds();
-setLed(1);
-interrupts();
-// started = false;
-//digitalWrite(2, LOW);
-}
-
-void loop() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  randomSeed(1);
+  initializeLeds();
+  initButtonsAndButtonInterrupts();
+  startTheGame();
   
-if(started == false) {
-//  setLed(1);
-  if(PINK != bin) {
-    startTheGame();
-  }
 }
-else {
-  binumero = bin & ~ (1 << (numero));
-    setLed(numero);
 
-  if(PINK == binumero) {
+
+void loop() 
+{
+  if(timeToCheckGameStatus) 
+  {
+    timeToCheckGameStatus = false;
+    Serial.println("aika katsoa status");
     checkGame();
   }
 
-  if(PINK != binumero && PINK != bin) {
-    TIMSK4 &= ~(1 << OCIE4A);
-    show1();
-    delay(500);
-   // resetFunc();
-    }
-  }
-}
+  if(timeToMakeNewNumber == true) 
+  {
+    timeToMakeNewNumber = false;
+    numero = random(0, 4);
+    setLed(numero);
+    randomNumbers[randomIndex] = numero;
+    randomIndex++;
+    Serial.print("Arvottu numero: ");
+    Serial.println(numero);
+    }// Arvo uusi numero
+    // Talleta arvottu numero randomNumbers-taulukkoon
+    // Sytytä arvottu ledi
+  }  

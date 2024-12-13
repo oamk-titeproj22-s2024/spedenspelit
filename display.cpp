@@ -1,4 +1,4 @@
-#include <arduino.h>
+#include <Arduino.h>
 #include "display.h"
 const int ResetPin = 12;
 const int shiftClockPin = 11;
