@@ -6,7 +6,8 @@ const int latchClockPin = 10;
 const int outEnablePin = 9;
 const int serialInputPin = 8;
 
-const uint8_t numerot[10] = {
+const uint8_t numerot[10] = 
+{
     0b01111110, // 0
     0b00110000, // 1
     0b01101101, // 2

@@ -10,22 +10,26 @@ extern volatile byte userIndex;
 volatile unsigned long lastButtonPressTime = 0;
 extern volatile bool started;
 
-void initButtonsAndButtonInterrupts() {
+void initButtonsAndButtonInterrupts() 
+{
 
-    for (byte i = 0; i < numButtons; i++) {
+    for (byte i = 0; i < numButtons; i++) 
+    {
         pinMode(buttonPins[i], INPUT_PULLUP);
     }
 
     PCICR |= (1 << PCIE2);
 
-    for (byte i = 0; i < numButtons; i++) {
+    for (byte i = 0; i < numButtons; i++) 
+    {
         PCMSK2 |= (1 << digitalPinToPCMSKbit(buttonPins[i]));
 
     }
 }
 
-void initializeStartButton(){
-
+void initializeStartButton()
+{
+  cli();
   pinMode(13, INPUT_PULLUP);
   
   PCICR |= (1 << PCIE0);
@@ -35,22 +39,27 @@ void initializeStartButton(){
   sei();
 }
 
-ISR(PCINT0_vect) {
+ISR(PCINT0_vect) 
+{
   unsigned long currentTime2 = millis();
-  if((currentTime2 - lastDebounceTime2) > debounceDelay){
+  if((currentTime2 - lastDebounceTime2) > debounceDelay)
+  {
     lastDebounceTime2 = currentTime2;
-    started = !started; 
+    started = !false; 
     startTheGame();
   }
 }
 
-ISR(PCINT2_vect) {
+ISR(PCINT2_vect) 
+{
     unsigned long currentTime = millis();
 
-    for (byte i = 0; i < numButtons; i++) {
-        if ((currentTime - lastDebounceTime[i]) > debounceDelay && digitalRead(buttonPins[i]) == LOW) {
+    for (byte i = 0; i < numButtons; i++) 
+    {
+        if ((currentTime - lastDebounceTime[i]) > debounceDelay && digitalRead(buttonPins[i]) == LOW)
+        {
             lastDebounceTime[i] = currentTime;
-            buttonNumber = buttonPins[i] - 2;
+            buttonNumber = buttonPins[i] -2;
             userNumbers[userIndex] = buttonNumber;                        
             timeToCheckGameStatus = true;
             userIndex++;
@@ -58,8 +67,6 @@ ISR(PCINT2_vect) {
             Serial.print("Nappia ");
             Serial.print(buttonNumber);
             Serial.println(" painettu");
-            
-            }
-            break;
+        }
     }
 }
