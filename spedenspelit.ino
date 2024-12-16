@@ -38,7 +38,7 @@ else{
   if(timeToCheckGameStatus) 
   {
     timeToCheckGameStatus = false;
-    Serial.println("aika katsoa status");
+    // Serial.println("aika katsoa status");
     checkGame();
   }
 
@@ -48,8 +48,8 @@ else{
     numero = random(0, 4);
     setLed(numero);
     randomNumbers[randomIndex++] = numero;
-    Serial.print("Arvottu numero: ");
-    Serial.println(numero);
+    // Serial.print("Arvottu numero: ");
+    // Serial.println(numero);
    
 //    if(millis() - lastButtonPressTime > timeDuration)
 //    {

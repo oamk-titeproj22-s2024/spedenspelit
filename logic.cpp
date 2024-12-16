@@ -32,13 +32,15 @@ void initializeTimer() {
 void checkGame() 
 {
   clearAllLeds();
-      Serial.println(userNumbers[userIndex-1]);
-      Serial.println(randomNumbers[randomIndex-1]);
+      // Serial.println(userNumbers[userIndex-1]);
+      // Serial.println(randomNumbers[randomIndex-1]);
       for(int i=0; i<userIndex; i++){ 
     if(userNumbers[i]!=randomNumbers[i])  
     {
     stopTheGame();
-      Serial.println("Peli päättyi");
+//      Serial.print("Peli päättyi, ");
+//      Serial.print("Lopullinen kierrosluku: ");
+//      Serial.println(userIndex);
       return;
       }  
     }
@@ -48,14 +50,16 @@ void checkGame()
     Serial.println("Voitit pelin");
     return;
   }
-  Serial.println("Oikea painallus");
+//  Serial.print("Oikea painallus, ");
+//  Serial.print("Kierrosluku: ");
+//  Serial.println(userIndex);
   showResult(userIndex);
 
   if(randomIndex % 10 == 0)
   {
     OCR1A = (uint16_t)(OCR1A*0.9); //Nopeutetaan
-    Serial.print("OCR1A on ");
-    Serial.println(OCR1A);
+//    Serial.print("OCR1A on ");
+//    Serial.println(OCR1A);
   }
 }
 
@@ -63,6 +67,7 @@ void startTheGame() {
   clearAllLeds();
   initializeTimer();
   initializeGame();
+  initializeDisplay();
   initButtonsAndButtonInterrupts();
   delay(500);
 }

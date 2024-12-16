@@ -64,9 +64,9 @@ ISR(PCINT2_vect)
             timeToCheckGameStatus = true;
             userIndex++;
             lastButtonPressTime = millis();
-            Serial.print("Nappia ");
-            Serial.print(buttonNumber);
-            Serial.println(" painettu");
+            // Serial.print("Nappia ");
+            // Serial.print(buttonNumber);
+            // Serial.println(" painettu");
         }
     }
 }
