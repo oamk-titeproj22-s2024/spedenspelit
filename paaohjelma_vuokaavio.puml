@@ -1,0 +1,27 @@
+@startuml
+skinparam conditionStyle inside
+start
+
+:setup;
+
+repeat :while (!started);
+  :show1;
+repeatwhile (started?) is (no)
+  ->yes;
+
+if (timeToCheckGameStatus) is (true) then
+  :timeToCheckGameStatus = false;
+  :checkGame;
+  detach
+endif
+
+if (timeToMakeNewNumber) is (true) then
+  :timeToMakeNewNumber = false;
+  :numero = random(0, 4);
+  :setLed(numero);
+  :randomNumbers[randomIndex++] = numero;
+  detach
+endif
+stop
+ 
+@enduml
